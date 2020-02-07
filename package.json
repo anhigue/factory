@@ -1,0 +1,22 @@
+{
+  "name": "factory",
+  "version": "1.0.0",
+  "description": "backend server",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andres1599/factory.git"
+  },
+  "author": "Anibal Higueros",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Andres1599/factory/issues"
+  },
+  "homepage": "https://github.com/Andres1599/factory#readme",
+  "dependencies": {
+    "mongodb": "^3.5.2"
+  }
+}
