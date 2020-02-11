@@ -11,12 +11,19 @@
     "url": "git+https://github.com/Andres1599/factory.git"
   },
   "author": "Anibal Higueros",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Andres1599/factory/issues"
   },
   "homepage": "https://github.com/Andres1599/factory#readme",
   "dependencies": {
-    "mongodb": "^3.5.2"
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.5.2",
+    "morgan": "^1.9.1",
+    "nodemon": "^2.0.2"
   }
 }
