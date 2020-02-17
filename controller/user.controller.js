@@ -1,29 +1,44 @@
-const User = require('../entities/user');
-
-module.exports = (app) => {
+module.exports = (db) => {
+    const dbMongo = db
     return {
-        get: (req, res) => { getUser(req, res) },
-        delete: (req, res) => { deleteUser(req, res) },
-        create: (req, res) => { createUser(req, res) },
-        update: (req, res) => { updateUser(req, res) }
+        get: (req, res) => {
+            getUser(req, res, dbMongo)
+        },
+        delete: (req, res) => {
+            deleteUser(req, res, dbMongo)
+        },
+        create: (req, res) => {
+            createUser(req, res, dbMongo)
+        },
+        update: (req, res) => {
+            updateUser(req, res, dbMongo)
+        }
     }
 }
 
-function getUser(req, res){
+const collection = 'users'
+
+function getUser(req, res, dbMongo) {
     try {
-        const factory = req.params.factory
-
-        if (factory) {
-            let user = new User();
-            let userFactory = user.getUser(factory)
-
-            res.json(userFactory);
-
-        } else {
-            res.json({
-                message: 'Factory cant be empty'
-            })
-        }
+        dbMongo.connection(err => {
+            if (err) {
+                res.json({
+                    message: 'Something is wrong, error ocurred.',
+                    error: error
+                })
+            } else {
+                dbMongo.getDB().collection(collection).find({}).toArray((err, documents) => {
+                    if (err)
+                        res.json({
+                            message: 'Something is wrong with the documents',
+                            err
+                        })
+                    else {
+                        res.json(documents)
+                    }
+                })
+            }
+        })
     } catch (error) {
         res.json({
             message: 'Something is wrong, error ocurred.',
@@ -32,9 +47,8 @@ function getUser(req, res){
     }
 }
 
-function deleteUser(req, res){}
+function deleteUser(req, res, dbMongo) {}
 
-function createUser(req, res){}
+function createUser(req, res, dbMongo) {}
 
-function updateUser(req, res){}
-
+function updateUser(req, res, dbMongo) {}
