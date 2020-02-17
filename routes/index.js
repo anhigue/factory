@@ -1,8 +1,8 @@
 const routes = require('express').Router();
 
-module.exports = (app) => {
+module.exports = (app,db) => {
 
-    const UserController = require('../controller/user.controller')(app);
+    const UserController = require('../controller/user.controller')(app,db);
 
     /**
      * @description routes for user factory

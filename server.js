@@ -23,6 +23,9 @@ if (config.develop.port) {
 /** 
  * @description set configuration
  */
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use((req, res, next) => {
@@ -31,7 +34,7 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
     next();
 });
-app.use('/api/factory', require('./routes')(db));
+app.use('/api/factory', require('./routes')(app,db));
 app.use(cors());
 
 /**
