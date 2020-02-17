@@ -1,9 +1,9 @@
-const config = require('./config/config');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
-require('dotenv').config();
+const db = require('./db/db.config');
+const config = require('./config/config');
 
 /** 
  * @description const to access in all app

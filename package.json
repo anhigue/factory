@@ -2,9 +2,9 @@
   "name": "factory",
   "version": "1.0.0",
   "description": "backend server",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "nodemon index.js"
+    "test": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.2",
     "morgan": "^1.9.1",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "path": "^0.12.7"
   }
 }

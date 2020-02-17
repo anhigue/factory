@@ -1,28 +1,18 @@
-export class User {
-    constructor() {
-        user = []
-        name = ''
-        rol = ''
-        access = false
+class User {
+    constructor(user, name, password, factoryID) {
+        this.user = user
+        this.name = name
+        this.password = password
+        this.factoryID = factoryID
     }
 
     /**
      * @description retrieve all the user on MongoDb
-     * @returns user
+     * @returns user[]
      * @ApiFactory
      */
-    getUser() {
-        return this.user
-    }
-
-    /**
-     * @description check if the user sended is on the collection
-     * @params user
-     * @returns boolean
-     * @ApiFactory
-     */
-    isOnCollection(userSend) {
-        return false
+    getUser(factory) {
+        return [{name: 'hugo'},{name: 'hugo'}]
     }
 
     /**
@@ -44,4 +34,16 @@ export class User {
     deleteUser(userSend){
 
     }
+
+    /**
+     * @description create a new user collection
+     * @params User
+     * @returns boolean
+     * @ApiFactory
+     */
+    createUser(userSend, factory){
+
+    }
 }
+
+module.exports = User;
