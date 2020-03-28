@@ -10,6 +10,6 @@ module.exports = (app,db) => {
     routes.get('/user', UserController.get)
     routes.post('/user/create', UserController.create)
     routes.post('/user/update', UserController.update)
-    routes.delete('/user/delete', UserController.delete)
+    routes.post('/user/delete', UserController.delete)
     return routes;
 };

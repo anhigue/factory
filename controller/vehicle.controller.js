@@ -2,23 +2,23 @@ module.exports = (app, db) => {
     const dbMongo = db
     return {
         get: (req, res) => {
-            getUser(req, res, dbMongo)
+            getVehicle(req, res, dbMongo)
         },
         delete: (req, res) => {
-            deleteUser(req, res, dbMongo)
+            deleteVehicle(req, res, dbMongo)
         },
         create: (req, res) => {
-            createUser(req, res, dbMongo)
+            createVehicle(req, res, dbMongo)
         },
         update: (req, res) => {
-            updateUser(req, res, dbMongo)
+            updateVehicle(req, res, dbMongo)
         }
     }
 }
 
-const collection = 'users'
+const collection = 'vehicles'
 
-function getUser(req, res, dbMongo) {
+function getVehicle(req, res, dbMongo) {
     try {
         dbMongo.connection(err => {
             if (err) {
@@ -47,7 +47,7 @@ function getUser(req, res, dbMongo) {
     }
 }
 
-function deleteUser(req, res, dbMongo) {
+function deleteVehicle(req, res, dbMongo) {
     try {
         const _idDocument = req.body._id
         dbMongo.connection(err => {
@@ -77,7 +77,7 @@ function deleteUser(req, res, dbMongo) {
     }
 }
 
-function createUser(req, res, dbMongo) {
+function createVehicle(req, res, dbMongo) {
     try {
         dbMongo.connection(err => {
             let user = req.body
@@ -100,7 +100,7 @@ function createUser(req, res, dbMongo) {
     }
 }
 
-function updateUser(req, res, dbMongo) {
+function updateVehicle(req, res, dbMongo) {
     try {
 
         const userUpdate = req.body
