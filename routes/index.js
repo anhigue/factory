@@ -6,6 +6,8 @@ module.exports = (app,db) => {
     const VehicleController = require('../controller/vehicle.controller')(app,db);
     const FactoryController = require('../controller/factory.controller')(app,db);
     const ClientController = require('../controller/client.controller')(app,db);
+    const PartController = require('../controller/part.controller')(app,db);
+
     /**
      * @description routes for user factory
      */
@@ -37,6 +39,15 @@ module.exports = (app,db) => {
     routes.post('/client', ClientController.create)
     routes.put('/client', ClientController.update)
     routes.delete('/client/:_id', ClientController.delete)
+
+    /**
+     * @description routes for user part
+     */
+    routes.get('/part', PartController.get)
+    routes.post('/part', PartController.create)
+    routes.put('/part', PartController.update)
+    routes.delete('/part/:_id', PartController.delete)
+    routes.put('/part/vehicle', PartController.updateVehicle)
 
     return routes;
 };
