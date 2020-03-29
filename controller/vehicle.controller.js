@@ -115,9 +115,10 @@ function updateVehicle(req, res, dbMongo) {
                     _id: dbMongo.getObjectIdDocument(userUpdate._id)
                 }, {
                     $set: {
-                        name: userUpdate.name,
-                        lastname: userUpdate.lastname,
-                        password: userUpdate.password
+                        universalCode: req.body.universalCode,
+                        brand: req.body.line,
+                        line: req.body.line,
+                        year: req.body.year
                     }
                 }, {
                     returnOriginal: false

@@ -25,9 +25,9 @@ module.exports = (app,db) => {
     /**
      * @description routes for user vehicle
      */
-    routes.get('/user', VehicleController.get)
-    routes.post('/user', VehicleController.create)
-    routes.put('/user', VehicleController.update)
-    routes.delete('/user/:_id', VehicleController.delete)
+    routes.get('/vehicle', VehicleController.get)
+    routes.post('/vehicle', VehicleController.create)
+    routes.put('/vehicle', VehicleController.update)
+    routes.delete('/vehicle/:_id', VehicleController.delete)
     return routes;
 };
