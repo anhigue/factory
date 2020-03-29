@@ -102,7 +102,6 @@ function createUser(req, res, dbMongo) {
 
 function updateUser(req, res, dbMongo) {
     try {
-
         const userUpdate = req.body
         dbMongo.connection(err => {
             if (err) {

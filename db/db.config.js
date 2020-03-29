@@ -31,6 +31,10 @@ const getDB = () => {
     return state.db
 }
 
+const createDB = () => {
+
+}
+
 module.exports = {
     connection,
     getObjectIdDocument,
