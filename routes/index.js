@@ -8,9 +8,10 @@ module.exports = (app,db) => {
     const ClientController = require('../controller/client.controller')(app,db);
     const PartController = require('../controller/part.controller')(app,db);
     const OrderController = require('../controller/order.controller')(app, db);
+    const TransactionController = require('../controller/transaction.controller')(app, db);
 
     /**
-     * @description routes for user factory
+     * @description routes for factory
      */
     routes.get('/user', UserController.get)
     routes.post('/user/create', UserController.create)
@@ -18,7 +19,7 @@ module.exports = (app,db) => {
     routes.post('/user/delete', UserController.delete)
 
     /**
-     * @description routes for user factory
+     * @description routes for factory
      */
     routes.get('/factory', FactoryController.get)
     routes.post('/factory', FactoryController.create)
@@ -26,7 +27,7 @@ module.exports = (app,db) => {
     routes.delete('/factory/:_id', FactoryController.delete)
 
     /**
-     * @description routes for user vehicle
+     * @description routes for vehicle
      */
     routes.get('/vehicle', VehicleController.get)
     routes.post('/vehicle', VehicleController.create)
@@ -34,7 +35,7 @@ module.exports = (app,db) => {
     routes.delete('/vehicle/:_id', VehicleController.delete)
 
     /**
-     * @description routes for user vehicle
+     * @description routes for vehicle
      */
     routes.get('/client', ClientController.get)
     routes.post('/client', ClientController.create)
@@ -42,7 +43,7 @@ module.exports = (app,db) => {
     routes.delete('/client/:_id', ClientController.delete)
 
     /**
-     * @description routes for user part
+     * @description routes for part
      */
     routes.get('/part', PartController.get)
     routes.post('/part', PartController.create)
@@ -51,7 +52,7 @@ module.exports = (app,db) => {
     routes.put('/part/vehicle', PartController.updateVehicle)
 
     /**
-     * @description routes for user order
+     * @description routes for order
      */
     routes.get('/order', OrderController.get)
     routes.post('/order', OrderController.create)
@@ -59,6 +60,12 @@ module.exports = (app,db) => {
     routes.delete('/order/:_id', OrderController.delete)
     routes.put('/order/part', OrderController.updatePart)
     routes.put('/order/state', OrderController.updateState)
+
+    /**
+     * @description routes for transaction
+     */
+    routes.get('/log', TransactionController.get)
+    routes.post('/log', TransactionController.create)
 
     return routes;
 };
