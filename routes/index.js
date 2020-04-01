@@ -72,7 +72,8 @@ module.exports = (app,db) => {
      * @description routes for transaction
      */
     routes.get('/report', ReportController.get)
-    routes.get('/report/new/:sort/:status', ReportController.create)
+    routes.get('/report/new/:sort/:status/:dateInit/:dateFinal', ReportController.create)
+    routes.post('/report', ReportController.register)
 
     return routes;
 };

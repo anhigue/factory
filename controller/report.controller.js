@@ -6,6 +6,9 @@ module.exports = (app, db) => {
         },
         create: (req, res) => {
             createReport(req, res, dbMongo)
+        },
+        register: (req, res) => {
+            registerReport(req, res, dbMongo)
         }
     }
 }
@@ -40,7 +43,11 @@ function createReport(req, res, dbMongo) {
 
             dbMongo.getDB().collection('orders').aggregate([{
                 $match: {
-                    status: (req.params.status === 'true')
+                    status: (req.params.status === 'true'),
+                    timeCreate: {
+                        $gte: req.params.dateInit,
+                        $lt: req.params.dateFinal
+                    }
                 }
             }, {
                 $group: {
@@ -73,4 +80,27 @@ function errorResponse(res, err) {
         message: 'Something is wrong',
         err
     })
+}
+
+function registerReport(req, res, dbMongo) {
+    try {
+        dbMongo.connection(err => {
+            let user = req.body
+            dbMongo.getDB().collection(collection).insertOne(user, (err, response) => {
+                if (err) {
+                    res.json({
+                        message: 'Something is wrong',
+                        err
+                    })
+                } else {
+                    res.json(response)
+                }
+            })
+        })
+    } catch (error) {
+        res.json({
+            message: 'Something is wrong',
+            error
+        })
+    }
 }
