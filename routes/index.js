@@ -9,6 +9,7 @@ module.exports = (app,db) => {
     const PartController = require('../controller/part.controller')(app,db);
     const OrderController = require('../controller/order.controller')(app, db);
     const TransactionController = require('../controller/transaction.controller')(app, db);
+    const ReportController = require('../controller/report.controller')(app, db);
 
     /**
      * @description routes for factory
@@ -66,6 +67,12 @@ module.exports = (app,db) => {
      */
     routes.get('/log', TransactionController.get)
     routes.post('/log', TransactionController.create)
+
+    /**
+     * @description routes for transaction
+     */
+    routes.get('/report', ReportController.get)
+    routes.get('/report/new/:sort/:status', ReportController.create)
 
     return routes;
 };
