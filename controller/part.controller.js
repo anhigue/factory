@@ -2,23 +2,26 @@ module.exports = (app, db) => {
     const dbMongo = db
     return {
         get: (req, res) => {
-            getUser(req, res, dbMongo)
+            getPart(req, res, dbMongo)
         },
         delete: (req, res) => {
-            deleteUser(req, res, dbMongo)
+            deletePart(req, res, dbMongo)
         },
         create: (req, res) => {
-            createUser(req, res, dbMongo)
+            createPart(req, res, dbMongo)
         },
         update: (req, res) => {
-            updateUser(req, res, dbMongo)
+            updatePart(req, res, dbMongo)
+        },
+        updateVehicle: (req, res) => {
+            updatePartVehicle(req, res, dbMongo)
         }
     }
 }
 
-const collection = 'users'
+const collection = 'parts'
 
-function getUser(req, res, dbMongo) {
+function getPart(req, res, dbMongo) {
     try {
         dbMongo.connection(err => {
             if (err) {
@@ -47,9 +50,9 @@ function getUser(req, res, dbMongo) {
     }
 }
 
-function deleteUser(req, res, dbMongo) {
+function deletePart(req, res, dbMongo) {
     try {
-        const _idDocument = req.body._id
+        const _idDocument = req.params._id
         dbMongo.connection(err => {
             if (err) {
                 res.json({
@@ -77,7 +80,7 @@ function deleteUser(req, res, dbMongo) {
     }
 }
 
-function createUser(req, res, dbMongo) {
+function createPart(req, res, dbMongo) {
     try {
         dbMongo.connection(err => {
             let user = req.body
@@ -100,7 +103,7 @@ function createUser(req, res, dbMongo) {
     }
 }
 
-function updateUser(req, res, dbMongo) {
+function updatePart(req, res, dbMongo) {
     try {
         const userUpdate = req.body
         dbMongo.connection(err => {
@@ -114,9 +117,45 @@ function updateUser(req, res, dbMongo) {
                     _id: dbMongo.getObjectIdDocument(userUpdate._id)
                 }, {
                     $set: {
-                        name: userUpdate.name,
-                        lastname: userUpdate.lastname,
-                        password: userUpdate.password
+                        name: req.body.name,
+                        description: req.body.description,
+                        partNo: req.body.partNo,
+                        price: req.body.price
+                    }
+                }, {
+                    returnOriginal: false
+                }, (err, result) => {
+                    if (err)
+                        console.log(err);
+                    else {
+                        res.json(result);
+                    }
+                });
+            }
+        })
+    } catch (error) {
+        res.json({
+            message: 'Something is wrong',
+            error
+        })
+    }
+}
+
+function updatePartVehicle(req, res, dbMongo) {
+    try {
+        const userUpdate = req.body
+        dbMongo.connection(err => {
+            if (err) {
+                res.json({
+                    message: 'Something is wrong',
+                    err
+                })
+            } else {
+                dbMongo.getDB().collection(collection).findOneAndUpdate({
+                    _id: dbMongo.getObjectIdDocument(userUpdate._id)
+                }, {
+                    $set: {
+                        vehicles: req.body.vehicles
                     }
                 }, {
                     returnOriginal: false

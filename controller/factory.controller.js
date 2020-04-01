@@ -2,23 +2,23 @@ module.exports = (app, db) => {
     const dbMongo = db
     return {
         get: (req, res) => {
-            getUser(req, res, dbMongo)
+            getFactory(req, res, dbMongo)
         },
         delete: (req, res) => {
-            deleteUser(req, res, dbMongo)
+            deleteFactory(req, res, dbMongo)
         },
         create: (req, res) => {
-            createUser(req, res, dbMongo)
+            createFactory(req, res, dbMongo)
         },
         update: (req, res) => {
-            updateUser(req, res, dbMongo)
+            updateFactory(req, res, dbMongo)
         }
     }
 }
 
-const collection = 'users'
+const collection = 'factorys'
 
-function getUser(req, res, dbMongo) {
+function getFactory(req, res, dbMongo) {
     try {
         dbMongo.connection(err => {
             if (err) {
@@ -47,9 +47,9 @@ function getUser(req, res, dbMongo) {
     }
 }
 
-function deleteUser(req, res, dbMongo) {
+function deleteFactory(req, res, dbMongo) {
     try {
-        const _idDocument = req.body._id
+        const _idDocument = req.params._id
         dbMongo.connection(err => {
             if (err) {
                 res.json({
@@ -77,7 +77,7 @@ function deleteUser(req, res, dbMongo) {
     }
 }
 
-function createUser(req, res, dbMongo) {
+function createFactory(req, res, dbMongo) {
     try {
         dbMongo.connection(err => {
             let user = req.body
@@ -100,7 +100,7 @@ function createUser(req, res, dbMongo) {
     }
 }
 
-function updateUser(req, res, dbMongo) {
+function updateFactory(req, res, dbMongo) {
     try {
         const userUpdate = req.body
         dbMongo.connection(err => {
@@ -114,9 +114,10 @@ function updateUser(req, res, dbMongo) {
                     _id: dbMongo.getObjectIdDocument(userUpdate._id)
                 }, {
                     $set: {
-                        name: userUpdate.name,
-                        lastname: userUpdate.lastname,
-                        password: userUpdate.password
+                        ip: req.body.ip,
+                        token: req.body.token,
+                        nameFactory: req.body.nameFactory,
+                        address: req.body.address
                     }
                 }, {
                     returnOriginal: false

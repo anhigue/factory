@@ -2,23 +2,29 @@ module.exports = (app, db) => {
     const dbMongo = db
     return {
         get: (req, res) => {
-            getUser(req, res, dbMongo)
+            getOrder(req, res, dbMongo)
         },
         delete: (req, res) => {
-            deleteUser(req, res, dbMongo)
+            deleteOrder(req, res, dbMongo)
         },
         create: (req, res) => {
-            createUser(req, res, dbMongo)
+            createOrder(req, res, dbMongo)
         },
         update: (req, res) => {
-            updateUser(req, res, dbMongo)
+            updateOrder(req, res, dbMongo)
+        },
+        updatePart: (req, res) => {
+            updatePart(req, res, dbMongo)
+        },
+        updateState: (req, res) => {
+            updateStateOrder(req, res, dbMongo);
         }
     }
 }
 
-const collection = 'users'
+const collection = 'orders'
 
-function getUser(req, res, dbMongo) {
+function getOrder(req, res, dbMongo) {
     try {
         dbMongo.connection(err => {
             if (err) {
@@ -47,9 +53,9 @@ function getUser(req, res, dbMongo) {
     }
 }
 
-function deleteUser(req, res, dbMongo) {
+function deleteOrder(req, res, dbMongo) {
     try {
-        const _idDocument = req.body._id
+        const _idDocument = req.params._id
         dbMongo.connection(err => {
             if (err) {
                 res.json({
@@ -77,7 +83,7 @@ function deleteUser(req, res, dbMongo) {
     }
 }
 
-function createUser(req, res, dbMongo) {
+function createOrder(req, res, dbMongo) {
     try {
         dbMongo.connection(err => {
             let user = req.body
@@ -100,7 +106,7 @@ function createUser(req, res, dbMongo) {
     }
 }
 
-function updateUser(req, res, dbMongo) {
+function updateOrder(req, res, dbMongo) {
     try {
         const userUpdate = req.body
         dbMongo.connection(err => {
@@ -114,9 +120,80 @@ function updateUser(req, res, dbMongo) {
                     _id: dbMongo.getObjectIdDocument(userUpdate._id)
                 }, {
                     $set: {
-                        name: userUpdate.name,
-                        lastname: userUpdate.lastname,
-                        password: userUpdate.password
+                        name: req.body.name,
+                        description: req.body.description,
+                        partNo: req.body.partNo,
+                        price: req.body.price
+                    }
+                }, {
+                    returnOriginal: false
+                }, (err, result) => {
+                    if (err)
+                        console.log(err);
+                    else {
+                        res.json(result);
+                    }
+                });
+            }
+        })
+    } catch (error) {
+        res.json({
+            message: 'Something is wrong',
+            error
+        })
+    }
+}
+
+function updatePart(req, res, dbMongo) {
+    try {
+        const userUpdate = req.body
+        dbMongo.connection(err => {
+            if (err) {
+                res.json({
+                    message: 'Something is wrong',
+                    err
+                })
+            } else {
+                dbMongo.getDB().collection(collection).findOneAndUpdate({
+                    _id: dbMongo.getObjectIdDocument(userUpdate._id)
+                }, {
+                    $set: {
+                        vehicles: req.body.vehicles
+                    }
+                }, {
+                    returnOriginal: false
+                }, (err, result) => {
+                    if (err)
+                        console.log(err);
+                    else {
+                        res.json(result);
+                    }
+                });
+            }
+        })
+    } catch (error) {
+        res.json({
+            message: 'Something is wrong',
+            error
+        })
+    }
+}
+
+function updateStateOrder(req, res, dbMongo) {
+    try {
+        const userUpdate = req.body
+        dbMongo.connection(err => {
+            if (err) {
+                res.json({
+                    message: 'Something is wrong',
+                    err
+                })
+            } else {
+                dbMongo.getDB().collection(collection).findOneAndUpdate({
+                    _id: dbMongo.getObjectIdDocument(userUpdate._id)
+                }, {
+                    $set: {
+                        status: true
                     }
                 }, {
                     returnOriginal: false
