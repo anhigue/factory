@@ -5,6 +5,7 @@ module.exports = {
         password: process.env.PASS_DB || '',
         port: process.env.PORT || 4000,
         mongodb: process.env.MONGO || 'mongodb://localhost:27017',
+        seed: process.env.SEED_DEV,
         status: true
     },
     production: {
@@ -12,6 +13,7 @@ module.exports = {
         password: process.env.PASS_DB,
         port: process.env.PORT,
         mongodb: process.env.MONGO || 'mongodb://localhost:27017',
+        seed: process.env.SEED_PROD,
         status: false
     }
 };

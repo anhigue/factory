@@ -43,7 +43,7 @@ function createReport(req, res, dbMongo) {
 
             dbMongo.getDB().collection('orders').aggregate([{
                 $match: {
-                    status: (req.params.status === 'true'),
+                    status: JSON.parse(req.params.status),
                     timeCreate: {
                         $gte: req.params.dateInit,
                         $lt: req.params.dateFinal

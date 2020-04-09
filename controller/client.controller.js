@@ -118,7 +118,8 @@ function updateClient(req, res, dbMongo) {
                         timeDelivery: req.body.timeDelivery,
                         status: req.body.status,
                         token: req.body.token,
-                        address: req.body.address
+                        address: req.body.address,
+                        url: req.body.url
                     }
                 }, {
                     returnOriginal: false
