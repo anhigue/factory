@@ -2,15 +2,24 @@ const routes = require('express').Router();
 
 module.exports = (app,db) => {
 
-    const UserController = require('../controller/user.controller')(app,db);
-    const VehicleController = require('../controller/vehicle.controller')(app,db);
-    const FactoryController = require('../controller/factory.controller')(app,db);
-    const ClientController = require('../controller/client.controller')(app,db);
-    const PartController = require('../controller/part.controller')(app,db);
-    const OrderController = require('../controller/order.controller')(app, db);
-    const TransactionController = require('../controller/transaction.controller')(app, db);
-    const ReportController = require('../controller/report.controller')(app, db);
-    const StatusController = require('../controller/status.controller')(app, db);
+    /**
+     * @description logic for collections
+     */
+    const UserController = require('../controller/user.controller')(app,db)
+    const VehicleController = require('../controller/vehicle.controller')(app,db)
+    const FactoryController = require('../controller/factory.controller')(app,db)
+    const ClientController = require('../controller/client.controller')(app,db)
+    const PartController = require('../controller/part.controller')(app,db)
+    const OrderController = require('../controller/order.controller')(app, db)
+    const TransactionController = require('../controller/transaction.controller')(app, db)
+    const ReportController = require('../controller/report.controller')(app, db)
+    const StatusController = require('../controller/status.controller')(app, db)
+    const EmailController = require('../controller/email.controller')(app, db)
+    
+    /**
+     * @description middleware for routes
+     */
+    const MiddleWareController = require('../middleware/middleware.controller');
 
     /**
      * @description routes for user
@@ -84,6 +93,11 @@ module.exports = (app,db) => {
     routes.get('/report', ReportController.get)
     routes.get('/report/new/:sort/:status/:dateInit/:dateFinal', ReportController.create)
     routes.post('/report', ReportController.register)
+
+    /**
+     * @description routes for email
+     */
+    routes.post('/email', MiddleWareController.verifyToken,EmailController.send)
 
     return routes;
 };

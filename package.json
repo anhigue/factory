@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Andres1599/factory#readme",
   "dependencies": {
+    "@sendgrid/mail": "^7.0.0",
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
@@ -26,7 +27,8 @@
     "mongodb": "^3.5.5",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.2",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "twilio": "^3.42.1"
   },
   "devDependencies": {
     "minimist": ">=1.2.2"

@@ -1,10 +1,10 @@
-const jwt = require('jsonwebtoken');
-const config = require()
+const jwt = require('jsonwebtoken')
+const config = require('../config/config')
 const verifyToken = (req, res, next) => {
 
-    const token = req.get('token');
+    const token = req.get('Authorization');
 
-    jwt.verify(token, config.develop.seed, (err, decoded) => {
+    jwt.verify(token, config.seed, (err, decoded) => {
 
         if (err) {
             return res.status(401).json({

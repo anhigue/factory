@@ -178,34 +178,42 @@ function logIn(req, res, dbMongo) {
                         })
                     }
 
-                    if (validatePassword(userSend.password, userFind.password)) {
-                        const token = jwt.sign({
-                            data: {
-                                _id: userFind._id,
-                                name: userFind.name,
-                                lastName: userFind.lastName,
-                                position: userFind.position
-                            }
-                        }, config.seed, {
-                            expiresIn: 60 * 60
-                        });
-
-                        res.json({
-                            ok: true,
-                            user: {
-                                _id: userFind._id,
-                                name: userFind.name,
-                                lastName: userFind.lastName,
-                                position: userFind.position
-                            },
-                            token
-                        })
-                    } else {
+                    if (userFind === null) {
                         res.json({
                             ok: false,
                             user: null,
                             token: null
                         })
+                    } else {
+                        if (validatePassword(userSend.password, userFind.password)) {
+                            const token = jwt.sign({
+                                data: {
+                                    _id: userFind._id,
+                                    name: userFind.name,
+                                    lastName: userFind.lastName,
+                                    position: userFind.position
+                                }
+                            }, config.seed, {
+                                expiresIn: 60 * 60
+                            });
+
+                            res.json({
+                                ok: true,
+                                user: {
+                                    _id: userFind._id,
+                                    name: userFind.name,
+                                    lastName: userFind.lastName,
+                                    position: userFind.position
+                                },
+                                token
+                            })
+                        } else {
+                            res.json({
+                                ok: false,
+                                user: null,
+                                token: null
+                            })
+                        }
                     }
                 })
             }

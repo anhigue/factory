@@ -15,4 +15,7 @@ module.exports = {
         status: false
     },
     seed: process.env.SEED,
+    accountSid: process.env.ACCOUNTSID,
+    authToken: process.env.AUTHTOKEN,
+    sendGridKey: process.env.SENDGRID_API_KEY
 };
