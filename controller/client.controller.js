@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 module.exports = (app, db) => {
     const dbMongo = db
     return {
@@ -80,8 +81,22 @@ function deleteClient(req, res, dbMongo) {
 function createClient(req, res, dbMongo) {
     try {
         dbMongo.connection(err => {
-            let user = req.body
-            dbMongo.getDB().collection(collection).insertOne(user, (err, response) => {
+
+            if (err) {
+                res.status(401).send({
+                    message: 'Something is wrong',
+                    err
+                })
+            }
+
+            const client = req.body
+            
+            const saltRounds = 10;
+            const salt = bcrypt.genSaltSync(saltRounds);
+            const hash = bcrypt.hashSync(user.password, salt);
+            
+            client.password = hash
+            dbMongo.getDB().collection(collection).insertOne(client, (err, response) => {
                 if (err) {
                     res.json({
                         message: 'Something is wrong',

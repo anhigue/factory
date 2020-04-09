@@ -19,6 +19,7 @@ module.exports = (app,db) => {
     routes.post('/user/create', UserController.create)
     routes.post('/user/update', UserController.update)
     routes.post('/user/delete', UserController.delete)
+    routes.post('/user/login', UserController.login);
 
     /**
      * @description routes for factory

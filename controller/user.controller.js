@@ -1,4 +1,6 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt')
+const config = require('../config/config')
+const jwt = require('jsonwebtoken');
 module.exports = (app, db) => {
     const dbMongo = db
     return {
@@ -13,6 +15,9 @@ module.exports = (app, db) => {
         },
         update: (req, res) => {
             updateUser(req, res, dbMongo)
+        },
+        login: (req, res) => {
+            logIn(req, res, dbMongo)
         }
     }
 }
@@ -150,4 +155,69 @@ function updateUser(req, res, dbMongo) {
             error
         })
     }
+}
+
+function logIn(req, res, dbMongo) {
+    try {
+        const userSend = req.body
+        dbMongo.connection(err => {
+            if (err) {
+                res.json({
+                    message: 'Something is wrong, error ocurred.',
+                    error: err
+                })
+            } else {
+                dbMongo.getDB().collection(collection).findOne({
+                    name: userSend.name
+                }, (err, userFind) => {
+
+                    if (err) {
+                        res.json({
+                            message: 'Something is wrong',
+                            err
+                        })
+                    }
+
+                    if (validatePassword(userSend.password, userFind.password)) {
+                        const token = jwt.sign({
+                            data: {
+                                _id: userFind._id,
+                                name: userFind.name,
+                                lastName: userFind.lastName,
+                                position: userFind.position
+                            }
+                        }, config.seed, {
+                            expiresIn: 60 * 60
+                        });
+
+                        res.json({
+                            ok: true,
+                            user: {
+                                _id: userFind._id,
+                                name: userFind.name,
+                                lastName: userFind.lastName,
+                                position: userFind.position
+                            },
+                            token
+                        })
+                    } else {
+                        res.json({
+                            ok: false,
+                            user: null,
+                            token: null
+                        })
+                    }
+                })
+            }
+        })
+    } catch (error) {
+        res.json({
+            message: 'Something is wrong',
+            error
+        })
+    }
+}
+
+function validatePassword(password, hash) {
+    return bcrypt.compareSync(password, hash)
 }
