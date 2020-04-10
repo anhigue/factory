@@ -3,7 +3,6 @@ const config = require('../config/config')
 const verifyToken = (req, res, next) => {
 
     const token = req.get('Authorization');
-
     jwt.verify(token, config.seed, (err, decoded) => {
 
         if (err) {
@@ -15,7 +14,7 @@ const verifyToken = (req, res, next) => {
             });
         }
 
-        req.body = decoded.data;
+        /* req.body = decoded.data; */
         next();
 
     });
