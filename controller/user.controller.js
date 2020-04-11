@@ -194,7 +194,7 @@ function logIn(req, res, dbMongo) {
                                     position: userFind.position
                                 }
                             }, config.seed, {
-                                expiresIn: 60 * 60
+                                expiresIn: 60 * 60 * 24
                             });
 
                             res.json({

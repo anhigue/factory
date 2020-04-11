@@ -15,7 +15,8 @@ module.exports = (app,db) => {
     const ReportController = require('../controller/report.controller')(app, db)
     const StatusController = require('../controller/status.controller')(app, db)
     const EmailController = require('../controller/email.controller')(app, db)
-    
+    const StoreController = require('../controller/store.controller')(app, db)
+
     /**
      * @description middleware for routes
      */
@@ -98,6 +99,11 @@ module.exports = (app,db) => {
      * @description routes for email
      */
     routes.post('/email', MiddleWareController.verifyToken, EmailController.send)
+
+    /**
+     * @description routes for store
+     */
+    routes.post('/store/report', StoreController.call)
 
     return routes;
 };
