@@ -17,7 +17,7 @@ function callOtherAPI(req, res, dbMongo) {
             data: req.body.data
         }
 
-        /* axios.get(options)
+        axios.get(options)
             .then(response => {
                 res.json({
                     ok: true,
@@ -29,7 +29,7 @@ function callOtherAPI(req, res, dbMongo) {
                     ok: false,
                     error
                 })
-            }); */
+            });
 
         res.json({
             ok: true,
