@@ -41,8 +41,9 @@ module.exports = (app,db) => {
 
     /**
      * @description routes for vehicle
+     * MiddleWareController.verifyToken,
      */
-    routes.get('/vehicle', MiddleWareController.verifyToken, VehicleController.get)
+    routes.get('/vehicle', VehicleController.get)
     routes.post('/vehicle', VehicleController.create)
     routes.put('/vehicle', VehicleController.update)
     routes.delete('/vehicle/:_id', VehicleController.delete)
@@ -97,8 +98,9 @@ module.exports = (app,db) => {
 
     /**
      * @description routes for email
+     *  MiddleWareController.verifyToken,
      */
-    routes.post('/email', MiddleWareController.verifyToken, EmailController.send)
+    routes.post('/email', EmailController.send)
 
     /**
      * @description routes for store

@@ -1,7 +1,9 @@
 const config = require('../config/config')
-const sgMail = require('@sendgrid/mail');
+const sgMail = require('@sendgrid/mail')
+const util = require('../utiles/utiles')
+const template = require('../template/template.email')
 module.exports = (app, db) => {
-    const dbMongo = db
+
     return {
         send: (req, res) => {
             sendMail(req, res)
@@ -11,22 +13,53 @@ module.exports = (app, db) => {
 
 function sendMail(req, res) {
     try {
+
+        const data = req.body
+        const fileBase64 = util.base64_encode('./files/some-attachment.txt')
+
+        if (!data) {
+            res.json({
+                ok: false,
+                data: null
+            })
+        }
+
+        if (!fileBase64) {
+            res.json({
+                ok: false,
+                data: {
+                    message: 'Error, parsing base 64 file'
+                }
+            })
+        }
+
         sgMail.setApiKey(config.sendGridKey);
+
         const msg = {
-            to: 'higueros71@gmail.com',
-            from: 'higueros71@gmail.com',
-            subject: 'Sending with Twilio SendGrid is Fun',
-            text: 'and easy to do anywhere, even with Node.js',
-            html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+            to: data.to,
+            from: data.from,
+            subject: data.subject,
+            text: data.text,
+            html: template.TEMPLATE_STRING_BASE,
+            attachments: [{
+                content: fileBase64,
+                filename: 'some-attachment.txt',
+                type: 'plain/text',
+                disposition: 'attachment',
+                contentId: 'test'
+            }, ],
         };
+
         sgMail.send(msg).then(response => {
             res.json({
                 ok: true,
-                status: 200,
-                response
+                data: response
             })
         }).catch(err => {
-            res.json(err)
+            res.json({
+                ok: false,
+                data: err
+            })
         })
     } catch (error) {
         res.json({

@@ -4,6 +4,9 @@ module.exports = (app, db) => {
     return {
         call: (req, res) => {
             callOtherAPI(req, res, dbMongo)
+        },
+        registerOrder: (req, res) => {
+
         }
     }
 }
@@ -43,4 +46,41 @@ function callOtherAPI(req, res, dbMongo) {
             error
         })
     }
+}
+
+function verifyOrder(req, res, dbMongo) {
+
+    const data = req.body
+
+    if (!data.order) {
+        res.status(401).send({
+            ok: false,
+            data: {
+                message: 'Operacion no valida'
+            }
+        })
+    }
+
+
+}
+
+function transformDataToOrder(data, order, client) {
+    
+    if (!data) {
+        return { ok: false, order: null }
+    }
+
+    if (!order) {
+        return { ok: false, order: null }
+    }
+
+    if (!client) {
+        return { ok: false, order: null }
+    }
+
+    order = {
+
+    }
+
+    return { ok: true, order }
 }
