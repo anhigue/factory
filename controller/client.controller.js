@@ -18,6 +18,9 @@ module.exports = (app, db) => {
         },
         login: (req, res) => {
             loginClient(req, res, dbMongo)
+        },
+        getData: (req, res) => {
+            consultOrder(req, res, dbMongo)
         }
     }
 }
@@ -221,4 +224,39 @@ function loginClient(req, res, dbMongo) {
 
 function validatePassword(password, hash) {
     return bcrypt.compareSync(password, hash)
+}
+
+function consultOrder(req, res, dbMongo) {
+    try {
+        const clientSend = req.body
+        const collection = 'orders'
+        dbMongo.getDB().collection(collection).find({
+            client: clientSend
+        }).toArray( (err, orders) => {
+            if (err) {
+                res.json({
+                    ok: false, 
+                    orders: null,
+                    error: err
+                })
+            }
+
+            if (orders === null) {
+                res.json({
+                    ok: false, 
+                    orders: null
+                })
+            }
+
+            res.json({
+                ok: true,
+                orders
+            })
+        })
+    } catch (error) {
+        res.json({
+            message: 'Something is wrong',
+            error
+        })
+    }
 }
