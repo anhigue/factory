@@ -1,4 +1,6 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt')
+const config = require('../config/config')
+const jwt = require('jsonwebtoken');
 module.exports = (app, db) => {
     const dbMongo = db
     return {
@@ -13,6 +15,9 @@ module.exports = (app, db) => {
         },
         update: (req, res) => {
             updateClient(req, res, dbMongo)
+        },
+        login: (req, res) => {
+            loginClient(req, res, dbMongo)
         }
     }
 }
@@ -153,4 +158,67 @@ function updateClient(req, res, dbMongo) {
             error
         })
     }
+}
+
+function loginClient(req, res, dbMongo) {
+    try {
+        const clientSend = req.body
+        dbMongo.connection(err => {
+            if (err) {
+                res.json({
+                    message: 'Something is wrong, error ocurred.',
+                    error: err
+                })
+            } else {
+                dbMongo.getDB().collection(collection).findOne({
+                    url: clientSend.name
+                }, (err, client) => {
+                    if (err) {
+                        res.json({
+                            message: 'Something is wrong',
+                            err
+                        })
+                    }
+
+                    if (client === null) {
+                        res.json({
+                            ok: false,
+                            client: null,
+                            token: null
+                        })
+                    } else {
+                        if (validatePassword(clientSend.password, client.token)) {
+                            const token = jwt.sign({
+                                data: client
+                            }, config.seed, {
+                                expiresIn: 60 * 60 * 24
+                            });
+
+                            res.json({
+                                ok: true,
+                                client,
+                                token
+                            })
+                        } else {
+                            res.json({
+                                ok: false,
+                                client: null,
+                                token: null
+                            })
+                        }
+                    }
+                })
+            }
+        })
+    } catch (error) {
+        res.json({
+            message: 'Something is wrong',
+            error
+        })
+    }
+}
+
+
+function validatePassword(password, hash) {
+    return bcrypt.compareSync(password, hash)
 }

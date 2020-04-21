@@ -63,6 +63,7 @@ module.exports = (app,db) => {
     routes.post('/client', ClientController.create)
     routes.put('/client', ClientController.update)
     routes.delete('/client/:_id', ClientController.delete)
+    routes.post('/client/login', ClientController.login)
 
     /**
      * @description routes for part
