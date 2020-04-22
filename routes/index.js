@@ -108,6 +108,8 @@ module.exports = (app,db) => {
      * @description routes for store
      */
     routes.post('/store/report', StoreController.call)
+    routes.post('/store/order/', StoreController.registerOrder)
+    routes.put('/store/order/cancel', StoreController.cancel)
 
     return routes;
 };

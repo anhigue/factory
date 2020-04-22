@@ -1,4 +1,7 @@
 const fs = require('fs');
+const bcrypt = require('bcrypt')
+const config = require('../config/config')
+const jwt = require('jsonwebtoken');
 
 /**
  * @description encode file to base 64
@@ -7,7 +10,9 @@ const fs = require('fs');
  */
 function base64_encode(file) {
     // read binary data
-    var body = fs.readFileSync(file, { encoding: 'base64' });
+    var body = fs.readFileSync(file, {
+        encoding: 'base64'
+    });
     return body
     /* var bitmap = fs.readFileSync(file);
     return new Buffer(bitmap).toString('base64'); */
@@ -25,7 +30,54 @@ function base64_decode(base64str, file) {
     fs.writeFileSync(file, bitmap);
 }
 
+/**
+ * @description add days from a date
+ * @params date number
+ * @returns date
+ */
+function addDays(date, days) {
+    const result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+}
+
+/**
+ * @description validate password
+ * @params string hash
+ * @returns boolean
+ */
+function validatePassword(password, hash) {
+    return bcrypt.compareSync(password, hash)
+}
+
+/**
+ * @description validate new order
+ * @params order send, client, status
+ * @returns orderCollection
+ */
+function transformDataToOrder(order, client, status) {
+
+    return {
+        id: order.id,
+        client: client,
+        factory: null,
+        parts: order.parts,
+        total: order.total,
+        timeDelivery: new Date(),
+        timeCreate: new Date(),
+        timeFullDelivery: addDays(
+            new Date(),
+            client.timeDelivery
+        ),
+        status: status
+    }
+
+}
+
 module.exports = {
     base64_encode,
-    base64_decode
+    base64_decode,
+    addDays,
+    validatePassword,
+    transformDataToOrder
 }

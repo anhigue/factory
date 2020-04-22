@@ -15,7 +15,7 @@ function sendMail(req, res) {
     try {
 
         const data = req.body
-        const fileBase64 = util.base64_encode('./files/some-attachment.txt')
+        const fileBase64 = util.base64_encode('./files/presupuesto.xlsx')
 
         if (!data) {
             res.json({
@@ -43,8 +43,8 @@ function sendMail(req, res) {
             html: template.TEMPLATE_STRING_BASE,
             attachments: [{
                 content: fileBase64,
-                filename: 'some-attachment.txt',
-                type: 'plain/text',
+                filename: 'presupuesto.xlsx',
+                type: 'xlsx',
                 disposition: 'attachment',
                 contentId: 'test'
             }, ],
