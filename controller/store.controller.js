@@ -11,6 +11,9 @@ module.exports = (app, db) => {
         },
         cancel: (req, res) => {
             cancelOrder(req, res, dbMongo)
+        }, 
+        cancelOrderStore: (req, res) => {
+            cancelOrderStore(req, res, dbMongo)
         }
     }
 }
@@ -20,6 +23,7 @@ const orderCollection = 'orders'
 const clientCollection = 'clients'
 const statusCollection = 'status'
 
+/* get report product store */
 function callOtherAPI(req, res, dbMongo) {
 
     const pass = req.body.password
@@ -35,7 +39,28 @@ function callOtherAPI(req, res, dbMongo) {
             })
         })
         .catch((error) => {
-            // handle error
+            res.json({
+                ok: false,
+                error
+            })
+        })
+}
+
+/* cancel order store */
+function cancelOrderStore(req, res, dbMongo) {
+    const idOrder = req.body.id
+    const client = req.body.client
+
+    const url = 'http://' + client.ip + '/request/cancel/' + idOrder
+
+    axios.put(url)
+        .then((response) => {
+            res.json({
+                ok: true,
+                data: response.data
+            })
+        })
+        .catch((error) => {
             res.json({
                 ok: false,
                 error

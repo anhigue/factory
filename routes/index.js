@@ -110,6 +110,7 @@ module.exports = (app,db) => {
     routes.post('/store/report', StoreController.call)
     routes.post('/store/order/', StoreController.registerOrder)
     routes.put('/store/order/cancel', StoreController.cancel)
+    routes.put('/order/store/cancel', StoreController.cancelOrderStore)
 
     return routes;
 };
