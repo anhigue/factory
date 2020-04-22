@@ -21,40 +21,26 @@ const clientCollection = 'clients'
 const statusCollection = 'status'
 
 function callOtherAPI(req, res, dbMongo) {
-    try {
-        const options = {
-            url: req.body.url,
-            method: req.body.method,
-            headers: req.body.headers,
-            data: req.body.data
-        }
 
-        axios.get(options)
-            .then(response => {
-                res.json({
-                    ok: true,
-                    data: response.data
-                })
+    const pass = req.body.password
+    const client = req.body.client
+
+    const url = 'http://' + client.ip + '/sale/fabric/' + pass
+
+    axios.get(url)
+        .then((response) => {
+            res.json({
+                ok: true,
+                data: response.data
             })
-            .catch(error => {
-                res.send({
-                    ok: false,
-                    error
-                })
-            });
-
-        res.json({
-            ok: true,
-            data: options
         })
-
-
-    } catch (error) {
-        res.status(500).send({
-            ok: false,
-            error
+        .catch((error) => {
+            // handle error
+            res.json({
+                ok: false,
+                error
+            })
         })
-    }
 }
 
 /* get the data to create a order  */
