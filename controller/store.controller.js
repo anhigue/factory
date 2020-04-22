@@ -151,8 +151,9 @@ function verifyClient(req, res, status, dbMongo) {
 /* save order on collection */
 function saveOrder(req, res, status, client, dbMongo) {
 
-    const orderSend = req.body.order
-    const orderCreate = util.transformDataToOrder(orderSend, client, status)
+    console.log(req.body)
+
+    const orderCreate = util.transformDataToOrder(req.body.id, req.body.product, req.body.date, client, status)
 
     dbMongo.getDB().collection(orderCollection).insertOne(orderCreate, (err, document) => {
         if (err) {
@@ -237,3 +238,5 @@ function updateOrder(req, res, status, dbMongo) {
 
     })
 }
+
+/*  */

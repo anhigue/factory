@@ -55,18 +55,18 @@ function validatePassword(password, hash) {
  * @params order send, client, status
  * @returns orderCollection
  */
-function transformDataToOrder(order, client, status) {
+function transformDataToOrder(id, productRequest, date, client, status) {
 
     return {
-        id: order.id,
+        id: id,
         client: client,
         factory: null,
-        parts: order.parts,
-        total: order.total,
-        timeDelivery: new Date(),
-        timeCreate: new Date(),
+        parts: productRequest,
+        total: 0,
+        timeDelivery: date,
+        timeCreate: date,
         timeFullDelivery: addDays(
-            new Date(),
+            date,
             client.timeDelivery
         ),
         status: status

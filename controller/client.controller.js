@@ -98,11 +98,11 @@ function createClient(req, res, dbMongo) {
             }
 
             const client = req.body
-            
+
             const saltRounds = 10;
             const salt = bcrypt.genSaltSync(saltRounds);
             const hash = bcrypt.hashSync(client.token, salt);
-            
+
             client.token = hash
             dbMongo.getDB().collection(collection).insertOne(client, (err, response) => {
                 if (err) {
@@ -230,28 +230,37 @@ function validatePassword(password, hash) {
 function consultOrder(req, res, dbMongo) {
     try {
         const clientSend = req.body
-        const collection = 'orders'
-        dbMongo.getDB().collection(collection).find({
-            client: clientSend
-        }).toArray( (err, orders) => {
+        dbMongo.connection(err => {
             if (err) {
                 res.json({
-                    ok: false, 
-                    orders: null,
+                    message: 'Something is wrong, error ocurred.',
                     error: err
                 })
             }
 
-            if (orders === null) {
-                res.json({
-                    ok: false, 
-                    orders: null
-                })
-            }
 
-            res.json({
-                ok: true,
-                orders
+            dbMongo.getDB().collection('orders').find({
+                'client.ip': clientSend.ip
+            }).toArray((err, orders) => {
+                if (err) {
+                    res.json({
+                        ok: false,
+                        orders: null,
+                        error: err
+                    })
+                }
+
+                if (orders === null) {
+                    res.json({
+                        ok: false,
+                        orders: null
+                    })
+                }
+
+                res.json({
+                    ok: true,
+                    orders
+                })
             })
         })
     } catch (error) {

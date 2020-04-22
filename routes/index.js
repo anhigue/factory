@@ -97,7 +97,9 @@ module.exports = (app,db) => {
     routes.get('/report', ReportController.get)
     routes.get('/report/new/:sort/:status/:dateInit/:dateFinal', ReportController.create)
     routes.post('/report', ReportController.register)
-
+    routes.get('/report/store', ReportController.getStore)
+    routes.post('/report/store', ReportController.registerStore)
+    
     /**
      * @description routes for email
      *  MiddleWareController.verifyToken,
