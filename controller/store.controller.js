@@ -26,7 +26,7 @@ const statusCollection = 'status'
 /* get report product store */
 function callOtherAPI(req, res, dbMongo) {
 
-    const pass = req.body.password
+    const pass = req.body.password 
     const client = req.body.client
 
     const url = 'http://' + client.ip + '/sale/fabric/' + pass

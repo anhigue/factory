@@ -1,7 +1,7 @@
 const config = require('../config/config')
 const sgMail = require('@sendgrid/mail')
-const util = require('../utiles/utiles')
 const template = require('../template/template.email')
+const xlsx = require('node-xlsx')
 module.exports = (app, db) => {
 
     return {
@@ -14,40 +14,50 @@ module.exports = (app, db) => {
 function sendMail(req, res) {
     try {
 
-        const data = req.body
-        const fileBase64 = util.base64_encode('./files/presupuesto.xlsx')
+        const dataExcel = req.body.data
 
-        if (!data) {
+        if (!dataExcel) {
             res.json({
                 ok: false,
                 data: null
             })
         }
 
-        if (!fileBase64) {
+        /* generate workbook */
+        /* const ws = XLSX.utils.aoa_to_sheet(dataExcel);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "reporte-ventas");
+
+        var buffer = XLSX.write(wb, {type:'buffer', bookType: "xlsx"}).toString('base64');
+
+        console.log(buffer); */
+
+        /* if (!buffer) {
             res.json({
                 ok: false,
                 data: {
-                    message: 'Error, parsing base 64 file'
+                    message: 'Error, buffer not function'
                 }
             })
-        }
+        } */
+
+        var buffer = xlsx.build([{name: "reporte", data: data}]) // Returns a buffer
 
         sgMail.setApiKey(config.sendGridKey);
 
         const msg = {
-            to: data.to,
-            from: data.from,
-            subject: data.subject,
-            text: data.text,
+            to: req.body.to,
+            from: req.body.from,
+            subject: req.body.subject,
+            text: req.body.text,
             html: template.TEMPLATE_STRING_BASE,
-            attachments: [{
+            /* attachments: [{
                 content: fileBase64,
-                filename: 'presupuesto.xlsx',
+                filename: 'reporte-ventas.xlsx',
                 type: 'xlsx',
                 disposition: 'attachment',
                 contentId: 'test'
-            }, ],
+            }, ], */
         };
 
         sgMail.send(msg).then(response => {

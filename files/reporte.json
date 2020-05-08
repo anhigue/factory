@@ -1,0 +1,207 @@
+[
+    {
+        "vehicles": [
+            {
+                "brand": {
+                    "id": 21,
+                    "name": "Ford"
+                },
+                "line": {
+                    "id": 21,
+                    "name": "Escape"
+                },
+                "year": "2002",
+                "universalCode": "ASSS2021"
+            },
+            {
+                "brand": {
+                    "id": 22,
+                    "name": "Toyota"
+                },
+                "line": {
+                    "id": 22,
+                    "name": "Toyota"
+                },
+                "year": "2009",
+                "universalCode": "AAASDDF"
+            }
+        ],
+        "fabric": {
+            "id": 1,
+            "name": "BOSCH",
+            "ip": "25.137.109.20:4000",
+            "servicePassword": "12345678",
+            "lastDateRequest": 1588910294529
+        },
+        "salePrice": 475.0,
+        "valueWithoutIVA": 424.11,
+        "id": 81,
+        "name": "Punta de flecha",
+        "description": "Punta de flecha universal, caja mecanica",
+        "partNo": "N2245",
+        "price": 250.0,
+        "stock": 2
+    },
+    {
+        "vehicles": [],
+        "fabric": {
+            "id": 1,
+            "name": "BOSCH",
+            "ip": "25.137.109.20:4000",
+            "servicePassword": "12345678",
+            "lastDateRequest": 1588910294529
+        },
+        "salePrice": 285.0,
+        "valueWithoutIVA": 254.46,
+        "id": 86,
+        "name": "Rotulas 2",
+        "description": "Rotula 2",
+        "partNo": "N2386",
+        "price": 150.0,
+        "stock": 5
+    },
+    {
+        "vehicles": [],
+        "fabric": {
+            "id": 1,
+            "name": "BOSCH",
+            "ip": "25.137.109.20:4000",
+            "servicePassword": "12345678",
+            "lastDateRequest": 1588910294529
+        },
+        "salePrice": 1140.0,
+        "valueWithoutIVA": 1017.86,
+        "id": 41,
+        "name": "Pistones",
+        "description": "Pistones del carro",
+        "partNo": "567",
+        "price": 600.0,
+        "stock": 7
+    },
+    {
+        "vehicles": [],
+        "fabric": {
+            "id": 1,
+            "name": "BOSCH",
+            "ip": "25.137.109.20:4000",
+            "servicePassword": "12345678",
+            "lastDateRequest": 1588910294529
+        },
+        "salePrice": 1140.0,
+        "valueWithoutIVA": 1017.86,
+        "id": 41,
+        "name": "Pistones",
+        "description": "Pistones del carro",
+        "partNo": "567",
+        "price": 600.0,
+        "stock": 7
+    },
+    {
+        "vehicles": [],
+        "fabric": {
+            "id": 1,
+            "name": "BOSCH",
+            "ip": "25.137.109.20:4000",
+            "servicePassword": "12345678",
+            "lastDateRequest": 1588910294529
+        },
+        "salePrice": 380.0,
+        "valueWithoutIVA": 339.29,
+        "id": 85,
+        "name": "Rotulas 1",
+        "description": "Rotulas ",
+        "partNo": "N345",
+        "price": 200.0,
+        "stock": 5
+    },
+    {
+        "vehicles": [],
+        "fabric": {
+            "id": 1,
+            "name": "BOSCH",
+            "ip": "25.137.109.20:4000",
+            "servicePassword": "12345678",
+            "lastDateRequest": 1588910294529
+        },
+        "salePrice": 380.0,
+        "valueWithoutIVA": 339.29,
+        "id": 85,
+        "name": "Rotulas 1",
+        "description": "Rotulas ",
+        "partNo": "N345",
+        "price": 200.0,
+        "stock": 5
+    },
+    {
+        "vehicles": [],
+        "fabric": {
+            "id": 1,
+            "name": "BOSCH",
+            "ip": "25.137.109.20:4000",
+            "servicePassword": "12345678",
+            "lastDateRequest": 1588910294529
+        },
+        "salePrice": 1140.0,
+        "valueWithoutIVA": 1017.86,
+        "id": 41,
+        "name": "Pistones",
+        "description": "Pistones del carro",
+        "partNo": "567",
+        "price": 600.0,
+        "stock": 7
+    },
+    {
+        "vehicles": [],
+        "fabric": {
+            "id": 1,
+            "name": "BOSCH",
+            "ip": "25.137.109.20:4000",
+            "servicePassword": "12345678",
+            "lastDateRequest": 1588910294529
+        },
+        "salePrice": 1140.0,
+        "valueWithoutIVA": 1017.86,
+        "id": 41,
+        "name": "Pistones",
+        "description": "Pistones del carro",
+        "partNo": "567",
+        "price": 600.0,
+        "stock": 7
+    },
+    {
+        "vehicles": [],
+        "fabric": {
+            "id": 1,
+            "name": "BOSCH",
+            "ip": "25.137.109.20:4000",
+            "servicePassword": "12345678",
+            "lastDateRequest": 1588910294529
+        },
+        "salePrice": 1140.0,
+        "valueWithoutIVA": 1017.86,
+        "id": 41,
+        "name": "Pistones",
+        "description": "Pistones del carro",
+        "partNo": "567",
+        "price": 600.0,
+        "stock": 7
+    },
+    {
+        "vehicles": [],
+        "fabric": {
+            "id": 1,
+            "name": "BOSCH",
+            "ip": "25.137.109.20:4000",
+            "servicePassword": "12345678",
+            "lastDateRequest": 1588910294529
+        },
+        "salePrice": 1140.0,
+        "valueWithoutIVA": 1017.86,
+        "id": 41,
+        "name": "Pistones",
+        "description": "Pistones del carro",
+        "partNo": "567",
+        "price": 600.0,
+        "stock": 7
+    }
+]
