@@ -1,15 +1,39 @@
 module.exports = (app, db) => {
     const dbMongo = db
     return {
+        /** 
+         * @description get all types of status
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         get: (req, res) => {
             getStatus(req, res, dbMongo)
         },
+        /** 
+         * @description delete a type of status
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         delete: (req, res) => {
             deleteStatus(req, res, dbMongo)
         },
+        /** 
+         * @description create a new type of status
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         create: (req, res) => {
             createStatus(req, res, dbMongo)
         },
+        /** 
+         * @description update a type of status
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         update: (req, res) => {
             updateStatus(req, res, dbMongo)
         }

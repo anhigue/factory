@@ -3,15 +3,39 @@ const util = require('../utiles/utiles')
 module.exports = (app, db) => {
     const dbMongo = db
     return {
+        /** 
+         * @description get data from store, do a call from other external api
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         call: (req, res) => {
             callOtherAPI(req, res, dbMongo)
         },
+        /** 
+         * @description register data that comes from store
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         registerOrder: (req, res) => {
             createOrder(req, res, dbMongo)
         },
+        /** 
+         * @description cancel order from store
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         cancel: (req, res) => {
             cancelOrder(req, res, dbMongo)
         }, 
+        /** 
+         * @description cancel order from factory
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         cancelOrderStore: (req, res) => {
             cancelOrderStore(req, res, dbMongo)
         }

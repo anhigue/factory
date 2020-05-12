@@ -1,15 +1,39 @@
 module.exports = (app, db) => {
     const dbMongo = db
     return {
+        /** 
+         * @description get all vehicles
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         get: (req, res) => {
             getVehicle(req, res, dbMongo)
         },
+        /** 
+         * @description delete a vehicle
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         delete: (req, res) => {
             deleteVehicle(req, res, dbMongo)
         },
+        /** 
+         * @description create a new vehicle
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         create: (req, res) => {
             createVehicle(req, res, dbMongo)
         },
+        /** 
+         * @description update a vehicle
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         update: (req, res) => {
             updateVehicle(req, res, dbMongo)
         }

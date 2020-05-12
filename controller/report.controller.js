@@ -1,21 +1,51 @@
 module.exports = (app, db) => {
     const dbMongo = db
     return {
+        /** 
+         * @description get all reports
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+         */
         get: (req, res) => {
             getReport(req, res, dbMongo)
         },
+        /** 
+         * @description do aggregation to search data from report
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+         */
         create: (req, res) => {
             createReport(req, res, dbMongo)
         },
+        /** 
+         * @description register data from aggregation searched
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+         */
         register: (req, res) => {
             registerReport(req, res, dbMongo)
-        }, 
+        },
+        /** 
+         * @description get data from store to create a new report
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+         */
         getStore: (req, res) => {
             getReportStore(req, res, dbMongo)
         },
+        /** 
+         * @description register data that comes from store
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         registerStore: (req, res) => {
             registerReportStore(req, res, dbMongo)
-        }, 
+        },
     }
 }
 

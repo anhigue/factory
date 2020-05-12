@@ -4,18 +4,48 @@ const jwt = require('jsonwebtoken');
 module.exports = (app, db) => {
     const dbMongo = db
     return {
+        /** 
+         * @description get all the users
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         get: (req, res) => {
             getUser(req, res, dbMongo)
         },
+        /** 
+         * @description delete a user
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         delete: (req, res) => {
             deleteUser(req, res, dbMongo)
         },
+        /** 
+         * @description create a new user
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         create: (req, res) => {
             createUser(req, res, dbMongo)
         },
+        /** 
+         * @description update a user
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         update: (req, res) => {
             updateUser(req, res, dbMongo)
         },
+        /** 
+         * @description login user on the api
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         login: (req, res) => {
             logIn(req, res, dbMongo)
         }

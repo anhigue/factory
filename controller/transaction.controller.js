@@ -1,9 +1,21 @@
 module.exports = (app, db) => {
     const dbMongo = db
     return {
+        /** 
+         * @description get all the internal transactions on the api
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         get: (req, res) => {
             getTransaction(req, res, dbMongo)
         },
+        /** 
+         * @description register a new transaction
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         create: (req, res) => {
             createTransaction(req, res, dbMongo)
         }

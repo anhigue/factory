@@ -6,6 +6,11 @@ const fs = require('fs')
 const util = require('../utiles/utiles')
 module.exports = (app, db) => {
     return {
+        /** 
+         * @description send a mail with report sale
+         * @param {req} req
+         * @param {res} res
+        */
         send: (req, res) => {
             sendMail(req, res)
         }

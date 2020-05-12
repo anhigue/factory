@@ -1,18 +1,48 @@
 module.exports = (app, db) => {
     const dbMongo = db
     return {
+        /** 
+         * @description get all parts
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         get: (req, res) => {
             getPart(req, res, dbMongo)
         },
+        /** 
+         * @description delete a part
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         delete: (req, res) => {
             deletePart(req, res, dbMongo)
         },
+        /** 
+         * @description create a new part
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         create: (req, res) => {
             createPart(req, res, dbMongo)
         },
+        /** 
+         * @description update a part
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         update: (req, res) => {
             updatePart(req, res, dbMongo)
         },
+        /** 
+         * @description update vehicle list from a part
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         updateVehicle: (req, res) => {
             updatePartVehicle(req, res, dbMongo)
         }

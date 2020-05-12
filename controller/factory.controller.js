@@ -1,15 +1,39 @@
 module.exports = (app, db) => {
     const dbMongo = db
     return {
+        /** 
+         * @description get all the factory
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         get: (req, res) => {
             getFactory(req, res, dbMongo)
         },
+        /** 
+         * @description delete a factory
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         delete: (req, res) => {
             deleteFactory(req, res, dbMongo)
         },
+        /** 
+         * @description create a new factory
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         create: (req, res) => {
             createFactory(req, res, dbMongo)
         },
+        /** 
+         * @description update a factory
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         update: (req, res) => {
             updateFactory(req, res, dbMongo)
         }

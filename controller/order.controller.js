@@ -1,21 +1,57 @@
 module.exports = (app, db) => {
     const dbMongo = db
     return {
+        /** 
+         * @description get all orders
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         get: (req, res) => {
             getOrder(req, res, dbMongo)
         },
+        /** 
+         * @description delete a order
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         delete: (req, res) => {
             deleteOrder(req, res, dbMongo)
         },
+        /** 
+         * @description create a new order
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         create: (req, res) => {
             createOrder(req, res, dbMongo)
         },
+        /** 
+         * @description update a order
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         update: (req, res) => {
             updateOrder(req, res, dbMongo)
         },
+        /** 
+         * @description update part from a specific order
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         updatePart: (req, res) => {
             updatePart(req, res, dbMongo)
         },
+        /** 
+         * @description update state order
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         updateState: (req, res) => {
             updateStateOrder(req, res, dbMongo);
         }
