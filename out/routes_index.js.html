@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: routes/index.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: routes/index.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const routes = require('express').Router();
+
+module.exports = (app,db) => {
+
+    /**
+     * @description logic for collections
+     */
+    const UserController = require('../controller/user.controller')(app,db)
+    const VehicleController = require('../controller/vehicle.controller')(app,db)
+    const FactoryController = require('../controller/factory.controller')(app,db)
+    const ClientController = require('../controller/client.controller')(app,db)
+    const PartController = require('../controller/part.controller')(app,db)
+    const OrderController = require('../controller/order.controller')(app, db)
+    const TransactionController = require('../controller/transaction.controller')(app, db)
+    const ReportController = require('../controller/report.controller')(app, db)
+    const StatusController = require('../controller/status.controller')(app, db)
+    const EmailController = require('../controller/email.controller')(app, db)
+    const StoreController = require('../controller/store.controller')(app, db)
+
+    /**
+     * @description middleware for routes
+     */
+    const MiddleWareController = require('../middleware/middleware.controller');
+
+    /**
+     * @description routes for user
+     */
+    routes.get('/user', UserController.get)
+    routes.post('/user/create', UserController.create)
+    routes.post('/user/update', UserController.update)
+    routes.post('/user/delete', UserController.delete)
+    routes.post('/user/login', UserController.login);
+
+    /**
+     * @description routes for factory
+     */
+    routes.get('/factory', FactoryController.get)
+    routes.post('/factory', FactoryController.create)
+    routes.put('/factory', FactoryController.update)
+    routes.delete('/factory/:_id', FactoryController.delete)
+
+    /**
+     * @description routes for vehicle
+     * MiddleWareController.verifyToken,
+     */
+    routes.get('/vehicle', VehicleController.get)
+    routes.post('/vehicle', VehicleController.create)
+    routes.put('/vehicle', VehicleController.update)
+    routes.delete('/vehicle/:_id', VehicleController.delete)
+
+    /**
+     * @description routes for status
+     */
+    routes.get('/status', StatusController.get)
+    routes.post('/status', StatusController.create)
+    routes.put('/status', StatusController.update)
+    routes.delete('/status/:_id', StatusController.delete)
+
+    /**
+     * @description routes for client
+     */
+    routes.get('/client', ClientController.get)
+    routes.post('/client', ClientController.create)
+    routes.put('/client', ClientController.update)
+    routes.delete('/client/:_id', ClientController.delete)
+    routes.post('/client/login', ClientController.login)
+    routes.post('/client/data/', ClientController.getData)
+
+    /**
+     * @description routes for part
+     */
+    routes.get('/part', PartController.get)
+    routes.post('/part', PartController.create)
+    routes.put('/part', PartController.update)
+    routes.delete('/part/:_id', PartController.delete)
+    routes.put('/part/vehicle', PartController.updateVehicle)
+
+    /**
+     * @description routes for order
+     */
+    routes.get('/order', OrderController.get)
+    routes.post('/order', OrderController.create)
+    routes.put('/order', OrderController.update)
+    routes.delete('/order/:_id', OrderController.delete)
+    routes.put('/order/part', OrderController.updatePart)
+    routes.put('/order/state', OrderController.updateState)
+
+    /**
+     * @description routes for transaction
+     */
+    routes.get('/log', TransactionController.get)
+    routes.post('/log', TransactionController.create)
+
+    /**
+     * @description routes for transaction
+     */
+    routes.get('/report', ReportController.get)
+    routes.get('/report/new/:sort/:status/:dateInit/:dateFinal', ReportController.create)
+    routes.post('/report', ReportController.register)
+    routes.get('/report/store', ReportController.getStore)
+    routes.post('/report/store', ReportController.registerStore)
+    
+    /**
+     * @description routes for email
+     *  MiddleWareController.verifyToken,
+     */
+    routes.post('/email', EmailController.send)
+
+    /**
+     * @description routes for store
+     */
+    routes.post('/store/report', StoreController.call)
+    routes.post('/store/order/', StoreController.registerOrder)
+    routes.put('/store/order/cancel', StoreController.cancel)
+    routes.put('/order/store/cancel', StoreController.cancelOrderStore)
+
+    return routes;
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addDays">addDays</a></li><li><a href="global.html#app">app</a></li><li><a href="global.html#base64_decode">base64_decode</a></li><li><a href="global.html#base64_encode">base64_encode</a></li><li><a href="global.html#call">call</a></li><li><a href="global.html#cancel">cancel</a></li><li><a href="global.html#cancelOrderStore">cancelOrderStore</a></li><li><a href="global.html#connection">connection</a></li><li><a href="global.html#create">create</a></li><li><a href="global.html#delete">delete</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getData">getData</a></li><li><a href="global.html#getDB">getDB</a></li><li><a href="global.html#getObjectIdDocument">getObjectIdDocument</a></li><li><a href="global.html#getStore">getStore</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#port">port</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#registerOrder">registerOrder</a></li><li><a href="global.html#registerStore">registerStore</a></li><li><a href="global.html#send">send</a></li><li><a href="global.html#transformDataToOrder">transformDataToOrder</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#updatePart">updatePart</a></li><li><a href="global.html#updateState">updateState</a></li><li><a href="global.html#updateVehicle">updateVehicle</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#verifyToken">verifyToken</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Tue May 12 2020 12:20:05 GMT-0600 (Central Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

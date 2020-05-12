@@ -5,8 +5,9 @@ const jwt = require('jsonwebtoken');
 
 /**
  * @description encode file to base 64
- * @param file type string | path file
- * @returns string base64
+ * @param {string} file 
+ * @param {string} path
+ * @returns {string} base64
  */
 function base64_encode(file) {
     // read binary data
@@ -20,8 +21,9 @@ function base64_encode(file) {
 
 /**
  * @description decode file in base 64 and write file
- * @param (base64str: base64 file string, file: path file)
- * @returns
+ * @param {string} base64str
+ * @param {file} file path file
+ * @returns {string} base64
  */
 function base64_decode(base64str, file) {
     // create buffer object from base64 encoded string, it is important to tell the constructor that the string is base64 encoded
@@ -32,8 +34,8 @@ function base64_decode(base64str, file) {
 
 /**
  * @description add days from a date
- * @params date number
- * @returns date
+ * @param {date} number
+ * @return {date}
  */
 function addDays(date, days) {
     const result = new Date(date);
@@ -43,8 +45,8 @@ function addDays(date, days) {
 
 /**
  * @description validate password
- * @params string hash
- * @returns boolean
+ * @param {string} hash
+ * @return {boolean}
  */
 function validatePassword(password, hash) {
     return bcrypt.compareSync(password, hash)
@@ -52,8 +54,10 @@ function validatePassword(password, hash) {
 
 /**
  * @description validate new order
- * @params order send, client, status
- * @returns orderCollection
+ * @param {order} orderSend 
+ * @param {client} client
+ * @param {status} status
+ * @return {order} orderCollection
  */
 function transformDataToOrder(id, productRequest, date, client, status) {
 

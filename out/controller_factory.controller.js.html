@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controller/factory.controller.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controller/factory.controller.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>module.exports = (app, db) => {
+    const dbMongo = db
+    return {
+        /** 
+         * @description get all the factory
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
+        get: (req, res) => {
+            getFactory(req, res, dbMongo)
+        },
+        /** 
+         * @description delete a factory
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
+        delete: (req, res) => {
+            deleteFactory(req, res, dbMongo)
+        },
+        /** 
+         * @description create a new factory
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
+        create: (req, res) => {
+            createFactory(req, res, dbMongo)
+        },
+        /** 
+         * @description update a factory
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
+        update: (req, res) => {
+            updateFactory(req, res, dbMongo)
+        }
+    }
+}
+
+const collection = 'factorys'
+
+function getFactory(req, res, dbMongo) {
+    try {
+        dbMongo.connection(err => {
+            if (err) {
+                res.json({
+                    message: 'Something is wrong, error ocurred.',
+                    error: err
+                })
+            } else {
+                dbMongo.getDB().collection(collection).find({}).toArray((err, documents) => {
+                    if (err)
+                        res.json({
+                            message: 'Something is wrong with the documents',
+                            err
+                        })
+                    else {
+                        res.json(documents)
+                    }
+                })
+            }
+        })
+    } catch (error) {
+        res.json({
+            message: 'Something is wrong, error ocurred.',
+            error: error
+        })
+    }
+}
+
+function deleteFactory(req, res, dbMongo) {
+    try {
+        const _idDocument = req.params._id
+        dbMongo.connection(err => {
+            if (err) {
+                res.json({
+                    err
+                })
+            } else {
+                dbMongo.getDB().collection(collection).findOneAndDelete({
+                    _id: dbMongo.getObjectIdDocument(_idDocument)
+                }, (err, result) => {
+                    if (err)
+                        res.json({
+                            message: 'Something is wrong',
+                            err
+                        })
+                    else
+                        res.json(result);
+                })
+            }
+        })
+    } catch (error) {
+        res.json({
+            message: 'Something is wrong',
+            error
+        })
+    }
+}
+
+function createFactory(req, res, dbMongo) {
+    try {
+        dbMongo.connection(err => {
+            let user = req.body
+            dbMongo.getDB().collection(collection).insertOne(user, (err, response) => {
+                if (err) {
+                    res.json({
+                        message: 'Something is wrong',
+                        err
+                    })
+                } else {
+                    res.json(response)
+                }
+            })
+        })
+    } catch (error) {
+        res.json({
+            message: 'Something is wrong',
+            error
+        })
+    }
+}
+
+function updateFactory(req, res, dbMongo) {
+    try {
+        const userUpdate = req.body
+        dbMongo.connection(err => {
+            if (err) {
+                res.json({
+                    message: 'Something is wrong',
+                    err
+                })
+            } else {
+                dbMongo.getDB().collection(collection).findOneAndUpdate({
+                    _id: dbMongo.getObjectIdDocument(userUpdate._id)
+                }, {
+                    $set: {
+                        ip: req.body.ip,
+                        token: req.body.token,
+                        nameFactory: req.body.nameFactory,
+                        address: req.body.address
+                    }
+                }, {
+                    returnOriginal: false
+                }, (err, result) => {
+                    if (err)
+                        console.log(err);
+                    else {
+                        res.json(result);
+                    }
+                });
+            }
+        })
+    } catch (error) {
+        res.json({
+            message: 'Something is wrong',
+            error
+        })
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addDays">addDays</a></li><li><a href="global.html#app">app</a></li><li><a href="global.html#base64_decode">base64_decode</a></li><li><a href="global.html#base64_encode">base64_encode</a></li><li><a href="global.html#call">call</a></li><li><a href="global.html#cancel">cancel</a></li><li><a href="global.html#cancelOrderStore">cancelOrderStore</a></li><li><a href="global.html#connection">connection</a></li><li><a href="global.html#create">create</a></li><li><a href="global.html#delete">delete</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getData">getData</a></li><li><a href="global.html#getDB">getDB</a></li><li><a href="global.html#getObjectIdDocument">getObjectIdDocument</a></li><li><a href="global.html#getStore">getStore</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#port">port</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#registerOrder">registerOrder</a></li><li><a href="global.html#registerStore">registerStore</a></li><li><a href="global.html#send">send</a></li><li><a href="global.html#transformDataToOrder">transformDataToOrder</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#updatePart">updatePart</a></li><li><a href="global.html#updateState">updateState</a></li><li><a href="global.html#updateVehicle">updateVehicle</a></li><li><a href="global.html#validatePassword">validatePassword</a></li><li><a href="global.html#verifyToken">verifyToken</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Tue May 12 2020 12:20:05 GMT-0600 (Central Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
