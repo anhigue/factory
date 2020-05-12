@@ -1,5 +1,12 @@
 const jwt = require('jsonwebtoken')
 const config = require('../config/config')
+/** 
+ * @description verify if the token is correct
+ * @param {req} req
+ * @param {res} res
+ * @param {next} next
+ * @returns {callback} next
+ */
 const verifyToken = (req, res, next) => {
 
     const token = req.get('Authorization');
@@ -13,8 +20,6 @@ const verifyToken = (req, res, next) => {
                 }
             });
         }
-
-        /* req.body = decoded.data; */
         next();
 
     });

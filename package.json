@@ -29,6 +29,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.5",
     "morgan": "^1.10.0",
+    "node-cron": "^2.0.3",
     "node-xlsx": "^0.15.0",
     "nodemon": "^2.0.2",
     "path": "^0.12.7",
@@ -36,6 +37,7 @@
     "xlsx": "^0.15.6"
   },
   "devDependencies": {
+    "jsdoc": "^3.6.4",
     "minimist": ">=1.2.2"
   }
 }

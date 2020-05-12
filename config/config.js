@@ -1,4 +1,9 @@
 require('dotenv').config();
+/** 
+ * @description object that describes all API environment variables
+ * @typedef {config}
+ * @returns {config}
+*/
 module.exports = {
     develop: {
         user: process.env.USER_DB || 'root',

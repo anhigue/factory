@@ -4,21 +4,57 @@ const jwt = require('jsonwebtoken');
 module.exports = (app, db) => {
     const dbMongo = db
     return {
+        /** 
+         * @description get all the clients
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         get: (req, res) => {
             getClient(req, res, dbMongo)
         },
+        /** 
+         * @description delete a client
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         delete: (req, res) => {
             deleteClient(req, res, dbMongo)
         },
+        /** 
+         * @description create a new client
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         create: (req, res) => {
             createClient(req, res, dbMongo)
         },
+        /** 
+         * @description update a client
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         update: (req, res) => {
             updateClient(req, res, dbMongo)
         },
+        /** 
+         * @description login client api
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         login: (req, res) => {
             loginClient(req, res, dbMongo)
         },
+        /** 
+         * @description consult orders from client
+         * @param {req} req
+         * @param {res} res
+         * @param {db} dbMongo
+        */
         getData: (req, res) => {
             consultOrder(req, res, dbMongo)
         }
