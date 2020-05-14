@@ -38,7 +38,6 @@ function foundOtherProducts(clients, db, req, res) {
                 /* const productSave = responses.data; */
                 console.log(responses.data)
                 /* saveDataResponse(db, productSave, client, req, res) */
-                res.send('OK')
             }).catch(err => {
                 console.log(err)
             })
