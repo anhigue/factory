@@ -5,13 +5,11 @@ const express = require('express');
 const db = require('./db/db.config');
 const config = require('./config/config');
 const dbMongo = require('./db/db.config')
-const shoulder = require('./shoulder/shoulders')(dbMongo);
-
 /** 
  * @description const to access in all app
  */
 const app = express();
-
+const shoulder = require('./shoulder/shoulders')(app, dbMongo);
 /** 
  * @description chose the port to run the server on base file based config
  */
@@ -45,7 +43,7 @@ app.use(cors());
 app.listen(port, () => {
     console.log("Server on " + port);
     console.log("Debug del server: ");
-    /* shoulder.reportStore() */
+    shoulder.reportStore()
 });
 
 module.exports = app;

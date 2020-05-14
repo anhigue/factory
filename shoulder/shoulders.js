@@ -1,9 +1,9 @@
 const cron = require("node-cron");
 const axios = require('axios')
-module.exports = (db) => {
+module.exports = (app, db) => {
     return {
-        reportStore: () => {
-            shoulderReport(db)
+        reportStore: (req, res) => {
+            shoulderReport(db, req, res)
         }
     }
 }
@@ -11,48 +11,82 @@ module.exports = (db) => {
 const reportStoreCollection = 'reportStore'
 const clientsCollection = 'clients'
 
-function shoulderReport(db) {
+function shoulderReport(db,  req, res) {
     cron.schedule("* * * * *", function () {
         db.connection(err => {
             if (err) {
                 console.log(err)
             }
-            getClient(db)
+            getClient(db, req, res)
         })
     });
 }
 
 /* get Clients from data base */
-function getClient(db) {
+function getClient(db, req, res) {
     return db.getDB().collection(clientsCollection).find({}).toArray((err, documents) => {
-        foundOtherProducts(documents, db)
+        foundOtherProducts(documents, db, req, res)
     })
 }
 
 /* do the request */
-function foundOtherProducts(clients, db) {
-    clients.forEach( client => {
-        /* let url = 'http://' + client.ip + '/sale/fabric/12345' */
+function foundOtherProducts(clients, db, req, res) {
+    clients.forEach(client => {
+        let url = 'http://' + client.ip + '/sale/fabric/12345'
         axios.get('https://api.ipify.org?format=json')
-        .then( responses => {
-            /* const productSave = responses.data; */
-            console.log(responses.data)
-        }).catch( err => {
-            console.log(err)
-        })
+            .then(responses => {
+                /* const productSave = responses.data; */
+                console.log(responses.data)
+                /* saveDataResponse(db, productSave, client, req, res) */
+                res.send('OK')
+            }).catch(err => {
+                console.log(err)
+            })
     });
 }
 
 /* save response from request */
-function convertDataResponse(db, data, client) {
-    dbMongo.getDB().collection(reportStoreCollection).insertOne(user, (err, response) => {
+function saveDataResponse(dbMongo, data, client, req, res) {
+    saveData = convertDataResponse(data ,client)
+
+    if (!saveData.length > 0) {
+        res.send('OK')
+    }
+    dbMongo.getDB().collection(reportStoreCollection).insertMany(saveData, (err, response) => {
         if (err) {
             res.json({
                 message: 'Something is wrong',
                 err
             })
         } else {
-            res.json(response)
+            res.send('OK')
         }
     })
+}
+
+function convertDataResponse(data, clientRequest) {
+    let dataConverted = []
+
+    data.forEach(productStore => {
+        dataConverted.push({
+            id: productStore.id,
+            fabric: productStore.fabric,
+            salePrice: productStore.salePrice,
+            valueWithoutIVA: productStore.valueWithoutIVA,
+            name: productStore.name,
+            description: productStore.description,
+            partNo: productStore.partNo,
+            price: productStore.price,
+            stock: productStore.stock,
+            vehicles: productStore.vehicles,
+            dateSale: new Date(),
+            client: clientRequest
+        })
+    });
+
+    if (dataConverted.length > 0) {
+        return dataConverted
+    } else {
+        return []
+    }
 }
