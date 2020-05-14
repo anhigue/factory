@@ -262,5 +262,3 @@ function updateOrder(req, res, status, dbMongo) {
 
     })
 }
-
-/*  */
