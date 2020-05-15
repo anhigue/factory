@@ -208,6 +208,8 @@ function logIn(req, res, dbMongo) {
                         })
                     }
 
+                    console.log(userSend)
+
                     if (userFind === null) {
                         res.json({
                             ok: false,
