@@ -208,7 +208,7 @@ function logIn(req, res, dbMongo) {
                         })
                     }
 
-                    console.log(userSend)
+                    console.log(userFind)
 
                     if (userFind === null) {
                         res.json({
