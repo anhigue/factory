@@ -8,7 +8,7 @@ module.exports = (app, db) => {
          * @param {req} req
          * @param {res} res
          * @param {db} dbMongo
-        */
+         */
         call: (req, res) => {
             callOtherAPI(req, res, dbMongo)
         },
@@ -17,7 +17,7 @@ module.exports = (app, db) => {
          * @param {req} req
          * @param {res} res
          * @param {db} dbMongo
-        */
+         */
         registerOrder: (req, res) => {
             createOrder(req, res, dbMongo)
         },
@@ -26,18 +26,18 @@ module.exports = (app, db) => {
          * @param {req} req
          * @param {res} res
          * @param {db} dbMongo
-        */
+         */
         cancel: (req, res) => {
             cancelOrder(req, res, dbMongo)
-        }, 
+        },
         /** 
          * @description cancel order from factory
          * @param {req} req
          * @param {res} res
          * @param {db} dbMongo
-        */
+         */
         cancelOrderStore: (req, res) => {
-            cancelOrderStore(req, res, dbMongo)
+            cancelOrderStoreC(req, res, dbMongo)
         }
     }
 }
@@ -50,7 +50,7 @@ const statusCollection = 'status'
 /* get report product store */
 function callOtherAPI(req, res, dbMongo) {
 
-    const pass = req.body.password 
+    const pass = req.body.password
     const client = req.body.client
 
     const url = 'http://' + client.ip + '/sale/fabric/' + pass
@@ -71,7 +71,7 @@ function callOtherAPI(req, res, dbMongo) {
 }
 
 /* cancel order store */
-function cancelOrderStore(req, res, dbMongo) {
+function cancelOrderStoreC(req, res, dbMongo) {
     const idOrder = req.body.id
     const client = req.body.client
 
@@ -152,8 +152,9 @@ function createOrder(req, res, dbMongo) {
 /* verify if client exist and have credential ok */
 function verifyClient(req, res, status, dbMongo) {
 
+    console.log(req.body.ip)
     dbMongo.getDB().collection(clientCollection).findOne({
-        ip: req.body.ip
+        token: req.body.password
     }, (err, document) => {
 
         if (err) {

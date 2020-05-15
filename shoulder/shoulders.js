@@ -33,7 +33,8 @@ function getClient(db, req, res) {
 function foundOtherProducts(clients, db, req, res) {
     clients.forEach(client => {
         let url = 'http://' + client.ip + '/sale/fabric/12345'
-        axios.get('https://api.ipify.org?format=json')
+        /* const test = 'https://api.ipify.org?format=json' */
+        axios.get(url)
             .then(responses => {
                 /* const productSave = responses.data; */
                 console.log(responses.data)
