@@ -43,7 +43,7 @@ app.use(cors());
 app.listen(port, () => {
     console.log("Server on " + port);
     console.log("Debug del server: ");
-    /* shoulder.reportStore() */
+    shoulder.reportStore()
 });
 
 module.exports = app;

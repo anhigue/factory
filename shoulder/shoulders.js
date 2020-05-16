@@ -32,13 +32,18 @@ function getClient(db, req, res) {
 /* do the request */
 function foundOtherProducts(clients, db, req, res) {
     clients.forEach(client => {
-        let url = 'http://' + client.ip + '/sale/fabric/12345'
-        /* const test = 'https://api.ipify.org?format=json' */
+        let url = 'http://' + client.ip + '/sale/fabric/' + client.token
         axios.get(url)
-            .then(responses => {
-                /* const productSave = responses.data; */
-                console.log(responses.data)
-                /* saveDataResponse(db, productSave, client, req, res) */
+            .then( responses => {
+                const productSave = responses.data;
+                console.log(productSave);
+                if (productSave.length !== 0 ) {
+                    saveDataResponse(db, productSave, client, req, res)
+                } else {
+                    console.log({
+                        message: 'ok'
+                    })
+                }
             }).catch(err => {
                 console.log(err)
             })
@@ -59,7 +64,7 @@ function saveDataResponse(dbMongo, data, client, req, res) {
                 err
             })
         } else {
-            res.send('OK')
+            console.log(response)
         }
     })
 }
