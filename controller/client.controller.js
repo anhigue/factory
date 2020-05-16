@@ -135,11 +135,6 @@ function createClient(req, res, dbMongo) {
 
             const client = req.body
 
-            /* const saltRounds = 10;
-            const salt = bcrypt.genSaltSync(saltRounds);
-            const hash = bcrypt.hashSync(client.token, salt); */
-
-            client.token = hash
             dbMongo.getDB().collection(collection).insertOne(client, (err, response) => {
                 if (err) {
                     res.json({
