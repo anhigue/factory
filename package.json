@@ -38,6 +38,6 @@
   },
   "devDependencies": {
     "jsdoc": "^3.6.4",
-    "minimist": ">=1.2.2"
+    "minimist": ">=1.2.6"
   }
 }
